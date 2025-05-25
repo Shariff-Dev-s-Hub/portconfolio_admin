@@ -3,28 +3,51 @@ import jwt from "jsonwebtoken";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { redirect } from "next/navigation";
+import Cookies from 'js-cookie';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
 // Only call this in the browser (e.g., after login form submit)
-export const generateTokenAndNavigate = (userId: string) => {
-  if (typeof window === "undefined") return;
+export const generateToken = (userId: string) => {
+//   localStorage.setItem("jwt", "Sample");
+// return userId
+//   Cookies.set('jwt', 'myToken', { path: '/', sameSite: 'Lax' });
 
-  const secret = process.env.NEXT_PUBLIC_JWT_SECRET;
-  if (!secret) {
-    throw new Error("JWT_SECRET is not defined in environment variables");
-  }
+  // if (typeof window === "undefined") {
+  //   console.error("generateToken should only be called in the browser.");
+  //   return;
+  // }
 
-  const token = jwt.sign({ userId }, secret, { expiresIn: "7d" });
+  // const secret = process.env.NEXT_PUBLIC_JWT_SECRET;
 
-  // Save token in localStorage
-  localStorage.setItem("jwt", token);
+  // if (!secret) {
+  //   throw new Error("JWT_SECRET is not defined in environment variables");
+  // }
 
-  // Redirect to home page
-  redirect("/dashboard");
+  // try {
+  //   console.log("JWT_SECRET", secret);
+  //   const token = jwt.sign(
+  //     { userId },
+  //     secret,
+  //     {
+  //       expiresIn: "1h", // Token expires in 1 hour
+  //       algorithm: "HS256", // Use HMAC SHA-256 algorithm
+  //     }
+  //   );
+  //   console.log("Generated JWT token:", token);
 
+  //   // Save token in localStorage
+  //   try {
+  //     localStorage.setItem("jwt", token);
+  //   } catch (error) {
+  //     console.error("Failed to save token in localStorage", error);
+  //   }
+  // } catch (error) {
+  //   console.error("Error generating token", error);
+  //   throw error;
+  // }
 };
 
 export const authenticateUser = (token: string) => {
