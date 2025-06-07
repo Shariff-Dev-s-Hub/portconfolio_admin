@@ -11,7 +11,7 @@ export function cn(...inputs: ClassValue[]) {
 
 // Only call this in the browser (e.g., after login form submit)
 export const generateToken = (userId: string) => {
-//   localStorage.setItem("jwt", "Sample");
+  // localStorage.setItem("jwt", "Sample");
 // return userId
 //   Cookies.set('jwt', 'myToken', { path: '/', sameSite: 'Lax' });
 

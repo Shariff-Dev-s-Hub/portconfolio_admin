@@ -11,12 +11,24 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import React from "react";
 import { login, signup } from "@/controllers/authentication";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
+  const router = useRouter();
   const [inputValues, setInputValues] = React.useState({
     email: "",
     password: "",
   });
+
+  const onLogin = async () => {
+    const data = await login({
+      email: inputValues.email,
+      password: inputValues.password,
+    });
+    if (data) {
+      router.push("/home");
+    }
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -54,24 +66,7 @@ export default function LoginForm() {
                 required
               />
             </div>
-            <Button
-              onClick={() => {
-                // For Client Creation
-
-                // signup({
-                //   email: inputValues.email,
-                //   password: inputValues.password,
-                // });
-
-                // For Client Login
-                login({
-                    email: inputValues.email,
-                    password: inputValues.password,
-                })
-              }}
-              type="submit"
-              className="w-full"
-            >
+            <Button onClick={onLogin} type="submit" className="w-full">
               Login
             </Button>
           </div>

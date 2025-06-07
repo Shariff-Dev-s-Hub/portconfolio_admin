@@ -1,13 +1,8 @@
-import { generateToken } from "@/lib/utils";
 import toast from "react-hot-toast";
-// import { useRouter } from "next/navigation";
-
-
 interface SignupCredentials {
   email: string;
   password: string;
 }
-
 export const signup = async (credentials: SignupCredentials) => {
   const { email, password } = credentials;
   // const router = useRouter();
@@ -59,10 +54,33 @@ export const login = async (credentials: SignupCredentials) => {
     }
 
     toast.success("Login successful");
-    
-    // router.push("/dashboard");
+    localStorage.setItem("jwt", JSON.stringify(data?.token));
+    return data;
   } catch (err) {
     toast.error("Something went wrong");
+  }
+};
+
+export const checkAuth = async () => {
+  try {
+    const res = await fetch("/api/auth/authenticate", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    });
+    if (!res.ok) {
+      toast.error("Login Required");
+      throw new Error("Login Required");
+    }
+    const data = await res.json();
+    console.log("Authenticated user data:", data);
+
+    return data;
+  } catch (error) {
+    console.error("Error checking authentication:", error);
+    return null;
   }
 };
 

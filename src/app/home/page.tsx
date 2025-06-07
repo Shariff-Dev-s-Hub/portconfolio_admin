@@ -1,29 +1,31 @@
 "use client";
-import LoginForm from "@/components/authentication/login";
+import NavLayout from "@/components/layouts/nav-layout";
 import { LoaderView } from "@/components/ui/loader";
 import { checkAuth } from "@/controllers/authentication";
 import { useRouter } from "next/navigation";
 import React from "react";
 
-export default function Login() {
+const Home = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = React.useState(false);
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
 
+  // This effect is used to check authentication status when the component mounts
   React.useEffect(() => {
     const authenticate = async () => {
       setIsLoading(true);
       try {
         const data = await checkAuth();
+        console.log("Authentication data:", data);
         if (data) {
           setIsAuthenticated(true);
-          router.replace("/home");
         } else {
           setIsAuthenticated(false);
-          setIsLoading(false);
+          router.replace("/");
         }
       } catch (error) {
         console.error("Authentication failed:", error);
+      } finally {
         setIsLoading(false);
       }
     };
@@ -34,9 +36,24 @@ export default function Login() {
     return <LoaderView />;
   }
 
-  if (isAuthenticated) {
-    return null; // Do not render anything if authenticated
+  if (!isAuthenticated) {
+    return null; // Do not render anything if not authenticated
   }
 
-  return <LoginForm />;
-}
+  return (
+    <NavLayout>
+      <>
+        <h1>Hello world</h1>
+        {/* Hero configuration section */}
+        {/* Education Config Section */}
+        {/* Projects config section */}
+        {/* Certification section */}
+        {/* Skills section */}
+        {/* Contact section */}
+        {/* Footer section */}
+      </>
+    </NavLayout>
+  );
+};
+
+export default Home;
