@@ -19,16 +19,22 @@ export default function LoginForm() {
   const router = useRouter();
   const { isLoading, setLoading } = useLoaderStore();
   const [inputValues, setInputValues] = React.useState({
-    email: "",
-    password: "",
+    email:
+      process.env.NEXT_PUBLIC_ENVIRONMENT === "development"
+        ? process.env.NEXT_PUBLIC_EMAIL_ID
+        : "",
+    password:
+      process.env.NEXT_PUBLIC_ENVIRONMENT === "development"
+        ? process.env.NEXT_PUBLIC_PASSWORD
+        : "",
   });
 
   const onLogin = async () => {
     try {
       setLoading(true);
       const data = await login({
-        email: inputValues.email,
-        password: inputValues.password,
+        email: inputValues.email || "",
+        password: inputValues.password || "",
       });
       if (data) {
         router.push("/home");
@@ -64,7 +70,6 @@ export default function LoginForm() {
             <div className="space-y-4">
               <Label htmlFor="email">Email</Label>
               <Input
-                // className="border-yellow-500"
                 value={inputValues.email}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   setInputValues({ ...inputValues, email: e.target.value });
@@ -78,7 +83,6 @@ export default function LoginForm() {
             <div className="space-y-4">
               <Label htmlFor="password">Password</Label>
               <Input
-                // className="border-yellow-500"
                 value={inputValues?.password}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   setInputValues({ ...inputValues, password: e.target.value });

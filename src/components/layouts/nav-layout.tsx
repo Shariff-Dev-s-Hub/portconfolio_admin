@@ -23,7 +23,7 @@ const NavLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
         />
         <Button
           onClick={onLogout}
-          className="hidden md:block bg-amber-500  hover:text-white"
+          className="hidden md:block bg-amber-500  hover:text-white rounded-bl-full rounded-tr-full w-42 h-8"
         >
           {isLoading ? <LoaderPinwheelIcon /> : "Logout"}
         </Button>
