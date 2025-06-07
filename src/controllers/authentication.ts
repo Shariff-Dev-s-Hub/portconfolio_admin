@@ -29,6 +29,7 @@ export const signup = async (credentials: SignupCredentials) => {
     toast.success("Signup successful");
     // router.push("/dashboard");
   } catch (err) {
+    console.error("Error during signup:", err);
     toast.error("Something went wrong");
   }
 };
@@ -57,6 +58,7 @@ export const login = async (credentials: SignupCredentials) => {
     localStorage.setItem("jwt", JSON.stringify(data?.token));
     return data;
   } catch (err) {
+    console.error("Error during login:", err);
     toast.error("Something went wrong");
   }
 };

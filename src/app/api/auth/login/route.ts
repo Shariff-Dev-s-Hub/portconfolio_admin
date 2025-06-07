@@ -44,6 +44,7 @@ export async function POST(req: Request) {
     const token = generateToken(user._id);
     return NextResponse.json({ message: "Login successful", token }, { status: 200 });
   } catch (error) {
+    console.error("Error in login route:", error);
     return NextResponse.json({ error: "Server Error" }, { status: 500 });
   }
 }

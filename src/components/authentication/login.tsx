@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import React from "react";
-import { login, signup } from "@/controllers/authentication";
+import { login } from "@/controllers/authentication";
 import { useRouter } from "next/navigation";
 
 export default function LoginForm() {

@@ -17,6 +17,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ message: "User created", user: newUser }, { status: 201 });
   } catch (error) {
+    console.error("Error in signup route:", error);
     return NextResponse.json({ error: "Server Error" }, { status: 500 });
   }
 }
