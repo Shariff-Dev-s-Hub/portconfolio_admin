@@ -33,7 +33,6 @@ export default function LoginForm() {
       if (data) {
         router.push("/home");
       }
-      setLoading(false);
     } catch (error) {
       console.error("Error setting loading state:", error);
       setLoading(false);
