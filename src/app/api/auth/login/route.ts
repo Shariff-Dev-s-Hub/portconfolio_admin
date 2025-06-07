@@ -11,7 +11,7 @@ const generateToken = (userId: string) => {
   }
   try {
     const token = jwt.sign({ userId }, secret, {
-      expiresIn: "7d",
+      expiresIn: "3d",
       algorithm: "HS256",
     });
 
