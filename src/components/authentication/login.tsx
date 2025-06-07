@@ -13,22 +13,31 @@ import React from "react";
 import { login } from "@/controllers/authentication";
 import { useRouter } from "next/navigation";
 import { useLoaderStore } from "@/store/loader-store";
+import { LoaderPinwheel } from "lucide-react";
 
 export default function LoginForm() {
   const router = useRouter();
-  const { isLoading } = useLoaderStore();
+  const { isLoading, setLoading } = useLoaderStore();
   const [inputValues, setInputValues] = React.useState({
     email: "",
     password: "",
   });
 
   const onLogin = async () => {
-    const data = await login({
-      email: inputValues.email,
-      password: inputValues.password,
-    });
-    if (data) {
-      router.push("/home");
+    try {
+      setLoading(true);
+      const data = await login({
+        email: inputValues.email,
+        password: inputValues.password,
+      });
+      if (data) {
+        router.push("/home");
+      }
+      setLoading(false);
+    } catch (error) {
+      console.error("Error setting loading state:", error);
+      setLoading(false);
+      return;
     }
   };
 
@@ -78,13 +87,19 @@ export default function LoginForm() {
                 required
               />
             </div>
-            <Button
-              disabled={isLoading}
-              type="submit"
-              className="w-full bg-yellow-600"
-            >
-              Login
-            </Button>
+            <div className="flex justify-center">
+              <Button
+                disabled={isLoading}
+                type="submit"
+                className="w-full max-w-52 bg-yellow-600"
+              >
+                {isLoading ? (
+                  <LoaderPinwheel className="animate-spin" />
+                ) : (
+                  "Login"
+                )}
+              </Button>
+            </div>
           </form>
         </CardContent>
       </Card>

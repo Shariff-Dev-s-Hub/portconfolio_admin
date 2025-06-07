@@ -1,13 +1,17 @@
 "use client";
 import React from "react";
 import { Button } from "../ui/button";
-import { LogOut } from "lucide-react";
+import { LoaderPinwheelIcon, LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useLoaderStore } from "@/store/loader-store";
 
 const NavLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const router = useRouter();
+  const { isLoading, setLoading } = useLoaderStore();
   const onLogout = () => {
+    setLoading(true);
     localStorage.removeItem("jwt");
+    setLoading(false);
     router.replace("/");
   };
   return (
@@ -18,14 +22,18 @@ const NavLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
           alt="Brand Logo"
           className="w-42 h-8 object-cover rounded-br-full rounded-tl-full"
         />
-        <Button onClick={onLogout} className="hidden md:block bg-amber-500  hover:text-white">
-          Logout
-        </Button>
-        <div
+        <Button
           onClick={onLogout}
-          className="bg-amber-500 p-2 text-white rounded-full md:hidden cursor-pointer active:bg-gray-700 active:text-primary transition-colors"
+          className="hidden md:block bg-amber-500  hover:text-white"
         >
-          <LogOut size={20} />
+          {isLoading ? <LoaderPinwheelIcon /> : "Logout"}
+        </Button>
+        <div className="bg-amber-500 p-2 text-white rounded-full md:hidden cursor-pointer active:bg-gray-700 active:text-primary transition-colors">
+          {isLoading ? (
+            <LoaderPinwheelIcon />
+          ) : (
+            <LogOut onClick={onLogout} size={20} />
+          )}
         </div>
       </div>
       {children}
