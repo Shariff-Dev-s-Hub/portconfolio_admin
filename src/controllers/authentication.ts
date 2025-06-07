@@ -65,7 +65,6 @@ export const login = async (credentials: SignupCredentials) => {
 
 export const checkAuth = async () => {
   try {
-    console.log("Checking authentication...");
     const res = await fetch("/api/auth/authenticate", {
       method: "GET",
       headers: {
@@ -77,7 +76,6 @@ export const checkAuth = async () => {
       throw new Error("Login Required");
     }
     const data = await res.json();
-    console.log("Authenticated user data:", data);
 
     return data;
   } catch (error) {
