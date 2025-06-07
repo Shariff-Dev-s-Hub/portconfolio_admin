@@ -31,19 +31,28 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <Card className="mx-auto w-full max-w-xl">
+    <div className="flex items-center justify-center min-h-screen bg-yellow-50 px-4">
+      <Card className="mx-auto w-full max-w-xl border-none duration-500 hover:mb-5 hover:shadow-xl hover:shadow-amber-600">
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold">Login</CardTitle>
-          <CardDescription>
+          <CardTitle className="text-4xl font-bold text-yellow-500 text-center md:text-left">
+            Login
+          </CardTitle>
+          <CardDescription className="text-primary text-xs text-center md:text-left">
             Enter your email and password to login to your account
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
-            <div className="space-y-2">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              onLogin();
+            }}
+            className="space-y-10 mt-4"
+          >
+            <div className="space-y-4">
               <Label htmlFor="email">Email</Label>
               <Input
+                // className="border-yellow-500"
                 value={inputValues.email}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   setInputValues({ ...inputValues, email: e.target.value });
@@ -54,9 +63,10 @@ export default function LoginForm() {
                 required
               />
             </div>
-            <div className="space-y-2">
+            <div className="space-y-4">
               <Label htmlFor="password">Password</Label>
               <Input
+                // className="border-yellow-500"
                 value={inputValues?.password}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   setInputValues({ ...inputValues, password: e.target.value });
@@ -66,10 +76,10 @@ export default function LoginForm() {
                 required
               />
             </div>
-            <Button onClick={onLogin} type="submit" className="w-full">
+            <Button type="submit" className="w-full bg-yellow-600">
               Login
             </Button>
-          </div>
+          </form>
         </CardContent>
       </Card>
     </div>

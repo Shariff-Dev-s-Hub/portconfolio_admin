@@ -65,6 +65,7 @@ export const login = async (credentials: SignupCredentials) => {
 
 export const checkAuth = async () => {
   try {
+    console.log("Checking authentication...");
     const res = await fetch("/api/auth/authenticate", {
       method: "GET",
       headers: {
@@ -73,7 +74,6 @@ export const checkAuth = async () => {
       },
     });
     if (!res.ok) {
-      toast.error("Login Required");
       throw new Error("Login Required");
     }
     const data = await res.json();
@@ -85,34 +85,3 @@ export const checkAuth = async () => {
     return null;
   }
 };
-
-// interface LogoutRequest extends Request {}
-// interface LogoutResponse extends Response {}
-
-// export const logout = (req: LogoutRequest, res: LogoutResponse) => {
-//   try {
-//     res.cookie("jwt", "", { maxAge: 0 });
-//     res.status(200).json({ message: "Logged out successfully" });
-//   } catch (error) {
-//     console.log("Error in logout controller", (error as Error).message);
-//     res.status(500).json({ message: "Internal Server Error" });
-//   }
-// };
-
-// interface CheckAuthRequest extends Request {
-//   user?: {
-//     _id: string;
-//     email: string;
-//   };
-// }
-
-// interface CheckAuthResponse extends Response {}
-
-// export const checkAuth = (req: CheckAuthRequest, res: CheckAuthResponse) => {
-//   try {
-//     res.status(200).json(req.user);
-//   } catch (error) {
-//     console.log("Error in checkAuth controller", (error as Error).message);
-//     res.status(500).json({ message: "Internal Server Error" });
-//   }
-// };

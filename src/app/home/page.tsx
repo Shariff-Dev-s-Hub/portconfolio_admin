@@ -4,6 +4,7 @@ import { LoaderView } from "@/components/ui/loader";
 import { checkAuth } from "@/controllers/authentication";
 import { useRouter } from "next/navigation";
 import React from "react";
+import toast from "react-hot-toast";
 
 const Home = () => {
   const router = useRouter();
@@ -16,12 +17,12 @@ const Home = () => {
       setIsLoading(true);
       try {
         const data = await checkAuth();
-        console.log("Authentication data:", data);
         if (data) {
           setIsAuthenticated(true);
         } else {
           setIsAuthenticated(false);
           router.replace("/");
+          toast.error("Login Required");
         }
       } catch (error) {
         console.error("Authentication failed:", error);
