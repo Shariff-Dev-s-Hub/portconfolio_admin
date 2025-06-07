@@ -11,7 +11,6 @@ const NavLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const onLogout = () => {
     setLoading(true);
     localStorage.removeItem("jwt");
-    setLoading(false);
     router.replace("/");
   };
   return (
