@@ -12,9 +12,11 @@ import { Button } from "@/components/ui/button";
 import React from "react";
 import { login } from "@/controllers/authentication";
 import { useRouter } from "next/navigation";
+import { useLoaderStore } from "@/store/loader-store";
 
 export default function LoginForm() {
   const router = useRouter();
+  const { isLoading } = useLoaderStore();
   const [inputValues, setInputValues] = React.useState({
     email: "",
     password: "",
@@ -76,7 +78,11 @@ export default function LoginForm() {
                 required
               />
             </div>
-            <Button type="submit" className="w-full bg-yellow-600">
+            <Button
+              disabled={isLoading}
+              type="submit"
+              className="w-full bg-yellow-600"
+            >
               Login
             </Button>
           </form>

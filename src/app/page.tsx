@@ -1,18 +1,18 @@
 "use client";
 import LoginForm from "@/components/authentication/login";
-import { LoaderView } from "@/components/ui/loader";
 import { checkAuth } from "@/controllers/authentication";
+import { useLoaderStore } from "@/store/loader-store";
 import { useRouter } from "next/navigation";
 import React from "react";
 
 export default function Login() {
   const router = useRouter();
-  const [isLoading, setIsLoading] = React.useState(false);
+  const { setLoading } = useLoaderStore();
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
 
   React.useEffect(() => {
     const authenticate = async () => {
-      setIsLoading(true);
+      setLoading(true);
       try {
         const data = await checkAuth();
         if (data) {
@@ -20,22 +20,18 @@ export default function Login() {
           router.replace("/home");
         } else {
           setIsAuthenticated(false);
-          setIsLoading(false);
+          setLoading(false);
         }
       } catch (error) {
         console.error("Authentication failed:", error);
-        setIsLoading(false);
+        setLoading(false);
       }
     };
     authenticate();
   }, []);
 
-  if (isLoading) {
-    return <LoaderView />;
-  }
-
   if (isAuthenticated) {
-    return null; // Do not render anything if authenticated
+    return null;
   }
 
   return <LoginForm />;
