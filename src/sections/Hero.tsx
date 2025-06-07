@@ -1,9 +1,12 @@
-import React from 'react'
+import LayoutAlignment from "@/components/hero-components/LayoutAndAlignment/LayoutAlignment";
+import React from "react";
 
 const Hero = () => {
   return (
-    <div>Hero</div>
-  )
-}
+    <div>
+      <LayoutAlignment />
+    </div>
+  );
+};
 
-export default Hero
+export default Hero;
