@@ -4,3 +4,5 @@ export const layoutStyles = {
   textWithBgColor: "flex justify-center items-center ",
   textWithCenterImage: "flex justify-between items-center bg-cover bg-center",
 };
+
+export const sectionsClass = "bg-white shadow-md relative";

@@ -1,4 +1,5 @@
 import { UseFormSetValue } from "react-hook-form";
+import { HeroFormValues } from "@/lib/interfaces";
 
 // Helper function to get the JWT token
 const getToken = (): string | null => {
@@ -12,7 +13,7 @@ const getToken = (): string | null => {
 
 // Fetch hero settings
 export const getHeroSettings = async (
-  setValue: UseFormSetValue<{ layout: string }>,
+  setValue: UseFormSetValue<HeroFormValues>,
   setIsSettingsFetching: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   try {
@@ -50,7 +51,7 @@ export const getHeroSettings = async (
 };
 
 // Save hero settings
-export const saveHeroSettings = async (data: { layout: string }) => {
+export const saveHeroSettings = async (data: HeroFormValues) => {
   try {
     const token = getToken();
 

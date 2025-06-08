@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-export function HeroSkeletons() {
+export function HeroLayoutAlignmentSkeletons() {
   return (
     <div className="flex flex-col gap-4 mt-5">
       <Skeleton className="h-8 w-1/4 bg-[#edc776]" />

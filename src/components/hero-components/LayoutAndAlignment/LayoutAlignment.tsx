@@ -4,28 +4,11 @@ import Subheader from "../../resusables/Subheader";
 import MechSelector from "../../ui/mech-selector";
 import { AlignCenter, Image, Text } from "lucide-react";
 import LayoutPreview from "./LayoutPreview";
-import SubSectionsWrapper from "@/layouts/sub-section-wrapper";
-import {
-  UseFormRegister,
-  UseFormSetValue,
-  UseFormWatch,
-  FieldErrors,
-  UseFormHandleSubmit,
-} from "react-hook-form";
+import { FormUtils } from "@/lib/interfaces";
+import { cn } from "@/lib/utils";
+import { sectionsClass } from "@/styles-config/styles-base";
 
-interface FormValues {
-  layout: string; // Define the structure of your form values
-}
-
-interface FormUtils {
-  register: UseFormRegister<FormValues>;
-  watch: UseFormWatch<FormValues>;
-  handleSubmit: UseFormHandleSubmit<FormValues>;
-  errors: FieldErrors<FormValues>;
-  setValue: UseFormSetValue<FormValues>;
-}
-
-const LayoutAlignment = ({ formUtils = {} as FormUtils }) => {
+const LayoutAlignment: React.FC<{ formUtils: FormUtils }> = ({ formUtils }) => {
   const { register, setValue, watch } = formUtils;
 
   const options = [
@@ -61,21 +44,19 @@ const LayoutAlignment = ({ formUtils = {} as FormUtils }) => {
   ];
 
   return (
-    <SubSectionsWrapper>
+    <section className={cn(sectionsClass)}>
       {/* Layout and alignment sub-section */}
-      <section>
-        <Subheader heading="Layout & Alignment" />
-        <div className="flex flex-col lg:flex-row gap-3">
-          {/* Layout Preview */}
-          <LayoutPreview watch={watch} />
-          <MechSelector
-            register={register}
-            options={options}
-            setValue={setValue}
-          />
-        </div>
-      </section>
-    </SubSectionsWrapper>
+      <Subheader heading="Layout & Alignment" />
+      <div className="flex flex-col lg:flex-row gap-3">
+        {/* Layout Preview */}
+        <LayoutPreview watch={watch} />
+        <MechSelector
+          register={register}
+          options={options}
+          setValue={setValue}
+        />
+      </div>
+    </section>
   );
 };
 
