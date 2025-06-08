@@ -228,7 +228,7 @@ const HomeLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       {/* Main Content */}
       <main
         id="smooth-wrapper"
-        className="fixed top-0 left-0 right-0 bottom-0 overflow-hidden"
+        className="fixed top-0 left-0 right-0 bottom-0 overflow-auto"
       >
         <div
           id="smooth-content"
