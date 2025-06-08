@@ -60,7 +60,7 @@ export const LoaderView = () => {
   const { isLoading } = useLoaderStore();
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center transition-opacity bg-white ${
+      className={`fixed inset-0 z-100 flex items-center justify-center transition-opacity bg-white ${
         isLoading ? "opacity-100" : "opacity-0 pointer-events-none"
       }`}
     >

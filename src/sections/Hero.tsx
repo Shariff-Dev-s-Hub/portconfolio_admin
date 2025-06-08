@@ -11,6 +11,7 @@ import {
 import toast from "react-hot-toast";
 import InteractiveSaveBtn from "@/components/ui/interactive-savebtn";
 import { HeroSkeletons } from "@/components/skeleton-templates/hero-skeletons";
+import { useLoaderStore } from "@/store/loader-store";
 
 const Hero = () => {
   const {
@@ -23,6 +24,7 @@ const Hero = () => {
     resolver: zodResolver(heroSchema),
   });
 
+  const { setLoading } = useLoaderStore();
   const [isSettingsFetching, setIsSettingsFetching] = React.useState(false);
 
   const hasFetched = React.useRef(false);
@@ -51,22 +53,22 @@ const Hero = () => {
   }, [initialValues, currentValues]);
 
   const onSubmit = async () => {
+    setLoading(true);
     const payload = watch();
 
     await toast
-      .promise(
-        saveHeroSettings(payload), 
-        {
-          loading: "Saving hero settings...", 
-          success: "Hero settings saved successfully!",
-          error: "Failed to save hero settings.",
-        }
-      )
+      .promise(saveHeroSettings(payload), {
+        loading: "Saving hero settings...",
+        success: "Hero settings saved successfully!",
+        error: "Failed to save hero settings.",
+      })
       .then(() => {
         setInitialValues(payload);
+        setLoading(false);
       })
       .catch((error) => {
         console.error("Error saving hero settings:", error);
+        setLoading(false);
       });
   };
 
