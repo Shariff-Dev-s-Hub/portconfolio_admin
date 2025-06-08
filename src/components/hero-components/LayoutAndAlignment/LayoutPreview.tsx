@@ -21,10 +21,10 @@ const LayoutPreview: React.FC<LayoutPreviewProps> = (props) => {
           watch("layout") === "textWithCenterImage" ? "block" : "hidden"
         )}
       >
-        <h1 className="font-bold text-sm md:text-2xl lg:text-xl ">
+        <h1 className="font-bold text-sm md:text-2xl lg:text-sm xl:text-xl ">
           Your Name Here
         </h1>
-        <p className="font-semibold text-xs md:text-xl lg:text-sm text-gray-500">
+        <p className="font-semibold text-xs md:text-xl lg:text-xs xl:text-sm text-gray-500">
           Designation
         </p>
       </div>
