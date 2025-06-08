@@ -9,6 +9,7 @@ import {
   Boxes,
   Contact,
   Cpu,
+  Crown,
   LayoutTemplate,
   LogOut,
   Medal,
@@ -181,8 +182,11 @@ const HomeLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
             </a>
           </div>
           <div className="flex flex-col gap-0 min-h-[2rem] items-start w-full min-w-0 ">
-            <h4 className="w-full text-base truncate text-primary font-semibold">
+            <h4 className="w-full text-base truncate text-primary font-semibold flex items-center gap-2">
               Zunaith Shariff
+              <span className="text-amber-600">
+                <Crown size={15} />
+              </span>
             </h4>
             <p className="w-full text-xs truncate text-gray-400">
               MERN Stack Developer
