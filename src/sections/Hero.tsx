@@ -31,9 +31,9 @@ const Hero = () => {
     // Fetch hero settings only once when the component mounts
     if (!hasFetched.current) {
       getHeroSettings(setValue).then(() => {
-        const data = watch(); 
+        const data = watch();
         if (data) {
-          setInitialValues(data); 
+          setInitialValues(data);
         }
       });
       hasFetched.current = true;
@@ -63,8 +63,11 @@ const Hero = () => {
     <div>
       <div className="sticky top-20 left-4 flex justify-end mt-2 z-50">
         <InteractiveSaveBtn
-          disabled={isSaveDisabled} // Disable the button if no changes are made
           onClick={() => {
+            if (isSaveDisabled) {
+              toast.error("No changes to save.");
+              return false;
+            }
             onSubmit();
             return true;
           }}
