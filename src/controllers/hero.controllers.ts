@@ -12,11 +12,12 @@ const getToken = (): string | null => {
 
 // Fetch hero settings
 export const getHeroSettings = async (
-  setValue: UseFormSetValue<{ layout: string }>
+  setValue: UseFormSetValue<{ layout: string }>,
+  setIsSettingsFetching: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   try {
     const token = getToken();
-
+    setIsSettingsFetching(true);
     const res = await fetch("/api/hero/get-settings", {
       method: "GET",
       headers: {
@@ -24,7 +25,6 @@ export const getHeroSettings = async (
         Authorization: `Bearer ${token}`,
       },
     });
-
     if (!res.ok) {
       const errorData = await res.json();
       console.error(
@@ -38,7 +38,9 @@ export const getHeroSettings = async (
     if (data) {
       setValue("layout", data.layout); // Set the layout value in the form
     }
+    setIsSettingsFetching(false);
   } catch (error) {
+    setIsSettingsFetching(false);
     if (error instanceof Error) {
       console.error("Error fetching hero settings:", error.message);
     } else {
@@ -50,7 +52,7 @@ export const getHeroSettings = async (
 // Save hero settings
 export const saveHeroSettings = async (data: { layout: string }) => {
   try {
-    const token = getToken(); 
+    const token = getToken();
 
     const res = await fetch("/api/hero/save-settings", {
       method: "POST",

@@ -10,6 +10,7 @@ import {
 } from "@/controllers/hero.controllers";
 import toast from "react-hot-toast";
 import InteractiveSaveBtn from "@/components/ui/interactive-savebtn";
+import { HeroSkeletons } from "@/components/skeleton-templates/hero-skeletons";
 
 const Hero = () => {
   const {
@@ -22,6 +23,8 @@ const Hero = () => {
     resolver: zodResolver(heroSchema),
   });
 
+  const [isSettingsFetching, setIsSettingsFetching] = React.useState(false);
+
   const hasFetched = React.useRef(false);
   const [initialValues, setInitialValues] = React.useState<{
     layout: string;
@@ -30,7 +33,7 @@ const Hero = () => {
   React.useEffect(() => {
     // Fetch hero settings only once when the component mounts
     if (!hasFetched.current) {
-      getHeroSettings(setValue).then(() => {
+      getHeroSettings(setValue, setIsSettingsFetching).then(() => {
         const data = watch();
         if (data) {
           setInitialValues(data);
@@ -73,15 +76,19 @@ const Hero = () => {
           }}
         />
       </div>
-      <LayoutAlignment
-        formUtils={{
-          register,
-          watch,
-          handleSubmit,
-          errors,
-          setValue,
-        }}
-      />
+      {isSettingsFetching ? (
+        <HeroSkeletons />
+      ) : (
+        <LayoutAlignment
+          formUtils={{
+            register,
+            watch,
+            handleSubmit,
+            errors,
+            setValue,
+          }}
+        />
+      )}
     </div>
   );
 };
