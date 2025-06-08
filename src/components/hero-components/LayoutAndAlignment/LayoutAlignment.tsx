@@ -26,7 +26,7 @@ interface FormUtils {
 }
 
 const LayoutAlignment = ({ formUtils = {} as FormUtils }) => {
-  const { register, setValue } = formUtils;
+  const { register, setValue, watch } = formUtils;
 
   const options = [
     {
@@ -48,7 +48,16 @@ const LayoutAlignment = ({ formUtils = {} as FormUtils }) => {
       ),
     },
     { id: "textWithBgColor", label: <AlignCenter /> },
-    { id: "textWithBgImage", label: <Image /> },
+    {
+      id: "textWithCenterImage",
+      label: (
+        <div className="flex flex-row-reverse items-center gap-2">
+          <Text />
+          <Image />
+          <Text />
+        </div>
+      ),
+    },
   ];
 
   return (
@@ -58,7 +67,7 @@ const LayoutAlignment = ({ formUtils = {} as FormUtils }) => {
         <Subheader heading="Layout & Alignment" />
         <div className="flex flex-col lg:flex-row gap-3">
           {/* Layout Preview */}
-          <LayoutPreview />
+          <LayoutPreview watch={watch} />
           <MechSelector
             register={register}
             options={options}
