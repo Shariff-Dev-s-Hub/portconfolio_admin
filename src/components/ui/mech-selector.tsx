@@ -11,7 +11,7 @@ interface RadioOption {
 interface RadioProps {
   options: RadioOption[];
   register: UseFormRegister<HeroFormValues>; // Properly typed register
-  setValue: UseFormSetValue<HeroFormValues>; // Properly typed setValue
+  setValue?: UseFormSetValue<HeroFormValues>; // Properly typed setValue
 }
 
 const MechSelector: React.FC<RadioProps> = ({
@@ -36,7 +36,7 @@ const MechSelector: React.FC<RadioProps> = ({
                   value={option.id}
                   id={option.id}
                   onChange={(e) => {
-                    setValue("layout", e.target.value);
+                    setValue?.("layout", e.target.value);
                   }}
                   type="radio"
                 />

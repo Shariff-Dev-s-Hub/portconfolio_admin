@@ -23,11 +23,36 @@ export async function POST(req: Request) {
     // Parse the request body
     const settings = await req.json();
 
+    const requiredFields = ["layout", "name", "designation"];
+    // Validate required fields
+    const trimmedSettings = {
+      ...settings,
+      name: settings.name?.trim(),
+      designation: settings.designation?.trim(),
+      buttonText: settings.buttonText?.trim(),
+    };
+    for (const field of requiredFields) {
+      if (!trimmedSettings[field]) {
+        return NextResponse.json(
+          {
+            error: `${
+              field.charAt(0).toUpperCase() + field.slice(1)
+            } is required`,
+          },
+          { status: 400 }
+        );
+      }
+    }
+
     // Update or create hero settings in the database
-    const updatedSettings = await HeroSettings.findOneAndUpdate({}, settings, {
-      upsert: true,
-      new: true,
-    });
+    const updatedSettings = await HeroSettings.findOneAndUpdate(
+      {},
+      trimmedSettings,
+      {
+        upsert: true,
+        new: true,
+      }
+    );
 
     // Return the updated settings as a JSON response
     return NextResponse.json(updatedSettings, { status: 200 });

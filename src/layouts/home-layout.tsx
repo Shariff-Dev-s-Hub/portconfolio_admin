@@ -231,7 +231,7 @@ const HomeLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       {/* Main Content */}
       <main
         id="smooth-wrapper"
-        className="fixed top-0 left-0 right-0 bottom-0 overflow-auto"
+        className="fixed top-0 left-0 right-0 bottom-0 overflow-auto 2xl:container 2xl:mx-auto "
       >
         <div
           id="smooth-content"
@@ -247,7 +247,6 @@ const HomeLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
               {activeTab.displayText}
             </h1>
           </div>
-          <hr />
           <div className="md:px-7 lg:pl-80 lg:pr-10 lg:pb-10">{children}</div>
         </div>
       </main>

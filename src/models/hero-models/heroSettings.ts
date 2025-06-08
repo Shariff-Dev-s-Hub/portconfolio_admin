@@ -5,8 +5,25 @@ const heroSchema = new mongoose.Schema(
     layout: {
       type: String,
       required: true,
-      enum: ["imageLeft", "imageRight", "textWithBgColor", "textWithBgImage"],
+      enum: [
+        "imageLeft",
+        "imageRight",
+        "textWithBgColor",
+        "textWithCenterImage",
+      ],
       default: "imageRight",
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    designation: {
+      type: String,
+      required: true,
+    },
+    buttonText: {
+      type: String,
+      default: "Contact",
     },
   },
   { timestamps: true }

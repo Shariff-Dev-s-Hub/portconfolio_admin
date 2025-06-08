@@ -12,9 +12,10 @@ const LayoutPreview: React.FC<LayoutPreviewProps> = (props) => {
   return (
     <div
       className={cn(
-        "bg-conic-150 bg-amber-200 shadow-inner  w-full  min-h-52 md:min-h-72 px-10 md:px-20 lg:px-5 xl:px-20 lg:py-0 xl:py-10",
-        layoutStyles[watch("layout") as keyof typeof layoutStyles]
-      ,watch("layout") === "textWithCenterImage" ? "px-3" : "")}
+        "bg-conic-150 bg-amber-200 shadow-inner  w-full  h-52 md:h-72 px-10 md:px-20 lg:px-5 xl:px-20 lg:py-0 xl:py-10",
+        layoutStyles[watch("layout") as keyof typeof layoutStyles],
+        watch("layout") === "textWithCenterImage" ? "px-3" : ""
+      )}
     >
       <div
         className={cn(
@@ -22,10 +23,10 @@ const LayoutPreview: React.FC<LayoutPreviewProps> = (props) => {
         )}
       >
         <h1 className="font-bold text-sm md:text-2xl lg:text-sm xl:text-xl ">
-          Your Name Here
+          {watch("name")?.trim() || "Your Name Here"}
         </h1>
         <p className="font-semibold text-xs md:text-xl lg:text-xs xl:text-sm text-gray-500">
-          Designation
+          {watch("designation")?.trim() || "Designation"}
         </p>
       </div>
       <div
@@ -43,12 +44,14 @@ const LayoutPreview: React.FC<LayoutPreviewProps> = (props) => {
         )}
       >
         <h1 className="font-bold text-xl md:text-2xl lg:text-xl">
-          Your Name Here
+          {watch("name")?.trim() || "Your Name Here"}
         </h1>
         <p className="font-semibold text-sm md:text-xl lg:text-sm text-gray-500">
-          Designation
+          {watch("designation")?.trim() || "Designation"}
         </p>
-        <Button className="mt-5 rounded-4xl">Button</Button>
+        <Button className="mt-5 rounded-4xl">
+          {watch("buttonText")?.trim() || "Button"}
+        </Button>
       </div>
       <Button
         className={cn(
@@ -56,7 +59,7 @@ const LayoutPreview: React.FC<LayoutPreviewProps> = (props) => {
           "rounded-4xl"
         )}
       >
-        Button
+        {watch("buttonText")?.trim() || "Button"}
       </Button>
     </div>
   );

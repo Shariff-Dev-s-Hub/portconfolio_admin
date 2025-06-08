@@ -13,7 +13,7 @@ import toast from "react-hot-toast";
 import InteractiveSaveBtn from "@/components/ui/interactive-savebtn";
 import { HeroLayoutAlignmentSkeletons } from "@/components/skeleton-templates/hero-skeletons";
 import { useLoaderStore } from "@/store/loader-store";
-import ProfileDetails from "@/components/hero-components/Profile Details/profileDetails";
+import ProfileDetails from "@/components/hero-components/ProfileDetails/ProfileDetails";
 import SubSectionsWrapper from "@/layouts/sub-section-wrapper";
 
 const Hero = () => {
@@ -25,6 +25,9 @@ const Hero = () => {
     formState: { errors },
   } = useForm<HeroFormValues>({
     resolver: zodResolver(heroSchema), // Use zod schema for validation
+    defaultValues: {
+      layout: "imageRight",
+    },
   });
 
   const { setLoading } = useLoaderStore();
@@ -83,7 +86,7 @@ const Hero = () => {
               toast.error("No changes to save.");
               return false;
             }
-            onSubmit();
+            handleSubmit(onSubmit)();
             return true;
           }}
         />
@@ -91,29 +94,27 @@ const Hero = () => {
       {isSettingsFetching ? (
         <HeroLayoutAlignmentSkeletons />
       ) : (
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <SubSectionsWrapper>
-            <LayoutAlignment
-              formUtils={{
-                register,
-                watch,
-                handleSubmit,
-                errors,
-                setValue,
-              }}
-            />
+        <SubSectionsWrapper>
+          <LayoutAlignment
+            formUtils={{
+              register,
+              watch,
+              handleSubmit,
+              errors,
+              setValue,
+            }}
+          />
 
-            <ProfileDetails
-              formUtils={{
-                register,
-                watch,
-                handleSubmit,
-                errors,
-                setValue,
-              }}
-            />
-          </SubSectionsWrapper>
-        </form>
+          <ProfileDetails
+            formUtils={{
+              register,
+              watch,
+              handleSubmit,
+              setValue,
+              errors,
+            }}
+          />
+        </SubSectionsWrapper>
       )}
     </div>
   );

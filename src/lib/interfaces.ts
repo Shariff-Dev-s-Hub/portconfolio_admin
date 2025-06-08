@@ -1,4 +1,10 @@
-import { FieldErrors, UseFormHandleSubmit, UseFormRegister, UseFormSetValue, UseFormWatch } from "react-hook-form";
+import {
+  FieldErrors,
+  UseFormHandleSubmit,
+  UseFormRegister,
+  UseFormSetValue,
+  UseFormWatch,
+} from "react-hook-form";
 
 export interface HeroFormValues {
   layout?: string;
@@ -17,6 +23,6 @@ export interface FormUtils {
   register: UseFormRegister<HeroFormValues>;
   watch: UseFormWatch<HeroFormValues>;
   handleSubmit: UseFormHandleSubmit<HeroFormValues>;
-  errors: FieldErrors<HeroFormValues>;
-  setValue: UseFormSetValue<HeroFormValues>;
+  errors?: FieldErrors<HeroFormValues>;
+  setValue?: UseFormSetValue<HeroFormValues>;
 }

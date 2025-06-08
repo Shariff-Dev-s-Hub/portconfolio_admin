@@ -37,7 +37,10 @@ export const getHeroSettings = async (
 
     const data = await res.json();
     if (data) {
-      setValue("layout", data.layout); // Set the layout value in the form
+      setValue("layout", data.layout);
+      setValue("name", data.name);
+      setValue("designation", data.designation);
+      setValue("buttonText", data.buttonText);
     }
     setIsSettingsFetching(false);
   } catch (error) {
@@ -53,6 +56,12 @@ export const getHeroSettings = async (
 // Save hero settings
 export const saveHeroSettings = async (data: HeroFormValues) => {
   try {
+    const trimmedData = {
+      ...data,
+      name: data?.name?.trim(),
+      designation: data?.designation.trim(),
+      buttonText: data?.buttonText?.trim(),
+    };
     const token = getToken();
 
     const res = await fetch("/api/hero/save-settings", {
@@ -63,7 +72,7 @@ export const saveHeroSettings = async (data: HeroFormValues) => {
         Authorization: `Bearer ${token}`,
       },
       credentials: "include", // Include cookies if needed
-      body: JSON.stringify(data),
+      body: JSON.stringify(trimmedData),
     });
 
     if (!res.ok) {
