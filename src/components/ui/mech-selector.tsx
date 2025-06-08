@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { UseFormRegister, UseFormSetValue } from "react-hook-form";
 
 interface RadioOption {
   id: string;
@@ -8,13 +9,13 @@ interface RadioOption {
 
 interface RadioProps {
   options: RadioOption[];
-  register?: any;
-  setValue: any;
+  register: UseFormRegister<{ layout: string }>; // Properly typed register
+  setValue: UseFormSetValue<{ layout: string }>; // Properly typed setValue
 }
 
 const MechSelector: React.FC<RadioProps> = ({
   options,
-  register = {},
+  register,
   setValue,
 }) => {
   return (

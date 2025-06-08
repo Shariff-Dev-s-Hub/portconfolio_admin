@@ -5,13 +5,24 @@ import MechSelector from "../../ui/mech-selector";
 import { AlignCenter, Image, Text } from "lucide-react";
 import LayoutPreview from "./LayoutPreview";
 import SubSectionsWrapper from "@/layouts/sub-section-wrapper";
+import {
+  UseFormRegister,
+  UseFormSetValue,
+  UseFormWatch,
+  FieldErrors,
+  UseFormHandleSubmit,
+} from "react-hook-form";
+
+interface FormValues {
+  layout: string; // Define the structure of your form values
+}
 
 interface FormUtils {
-  register: any;
-  watch: any;
-  handleSubmit: any;
-  errors: any;
-  setValue: any;
+  register: UseFormRegister<FormValues>;
+  watch: UseFormWatch<FormValues>;
+  handleSubmit: UseFormHandleSubmit<FormValues>;
+  errors: FieldErrors<FormValues>;
+  setValue: UseFormSetValue<FormValues>;
 }
 
 const LayoutAlignment = ({ formUtils = {} as FormUtils }) => {
@@ -39,10 +50,6 @@ const LayoutAlignment = ({ formUtils = {} as FormUtils }) => {
     { id: "textWithBgColor", label: <AlignCenter /> },
     { id: "textWithBgImage", label: <Image /> },
   ];
-
-  const handleLayoutChange = (value: string) => {
-    //  update on zod
-  };
 
   return (
     <div>
