@@ -51,15 +51,23 @@ const Hero = () => {
   }, [initialValues, currentValues]);
 
   const onSubmit = async () => {
-    try {
-      const payload = watch();
-      await saveHeroSettings(payload);
-      toast.success("Hero settings saved successfully!");
-      setInitialValues(payload);
-    } catch (error) {
-      console.error("Error saving hero settings:", error);
-      toast.error("Failed to save hero settings.");
-    }
+    const payload = watch();
+
+    await toast
+      .promise(
+        saveHeroSettings(payload), 
+        {
+          loading: "Saving hero settings...", 
+          success: "Hero settings saved successfully!",
+          error: "Failed to save hero settings.",
+        }
+      )
+      .then(() => {
+        setInitialValues(payload);
+      })
+      .catch((error) => {
+        console.error("Error saving hero settings:", error);
+      });
   };
 
   return (
