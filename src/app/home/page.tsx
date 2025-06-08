@@ -22,6 +22,7 @@ const Home = () => {
     activeTab?: { value: keyof typeof sections };
   };
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  const hasAuthencationDone = React.useRef(false);
 
   // This effect is used to check authentication status when the component mounts
   const sections = {
@@ -52,7 +53,10 @@ const Home = () => {
         setLoading(false);
       }
     };
-    authenticate();
+    if (!hasAuthencationDone.current) {
+      authenticate();
+      hasAuthencationDone.current = true; // Ensure this runs only once
+    }
   }, []);
 
   if (!isAuthenticated) {

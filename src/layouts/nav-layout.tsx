@@ -11,7 +11,7 @@ const NavLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
 
   return (
     <div className="h-screen w-full bg-amber-50 overflow-y-auto">
-      <div className="bg-white z-50 fixed w-full py-4 px-4 md:px-10 lg:px-20 flex justify-between items-center">
+      <div className="bg-white z-50 fixed w-full py-4 px-4 md:px-10 lg:px-20 flex justify-between items-center shadow-md">
         <img
           src="/app_brand/logo.jpg"
           alt="Brand Logo"

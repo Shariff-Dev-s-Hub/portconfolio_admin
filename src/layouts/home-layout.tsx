@@ -153,6 +153,9 @@ const HomeLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       {/* Drawer */}
       <aside
         id="nav-menu-1"
+        style={{
+          boxShadow: "4px 0 10px rgba(0, 0, 0, 0.1)", // Right-side shadow
+        }}
         aria-label="Side navigation"
         className={`fixed top-0 bottom-0 left-0 z-60 flex flex-col transition-transform bg-white w-72 ${
           isDrawerOpen ? "translate-x-0" : "-translate-x-full"

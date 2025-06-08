@@ -23,18 +23,36 @@ const Hero = () => {
   });
 
   const hasFetched = React.useRef(false);
+  const [initialValues, setInitialValues] = React.useState<{
+    layout: string;
+  } | null>(null);
+
   React.useEffect(() => {
+    // Fetch hero settings only once when the component mounts
     if (!hasFetched.current) {
-      getHeroSettings(setValue);
+      getHeroSettings(setValue).then(() => {
+        const data = watch(); 
+        if (data) {
+          setInitialValues(data); 
+        }
+      });
       hasFetched.current = true;
     }
   }, [setValue]);
+
+  const currentValues = watch();
+
+  const isSaveDisabled = React.useMemo(() => {
+    if (!initialValues) return true;
+    return JSON.stringify(initialValues) === JSON.stringify(currentValues);
+  }, [initialValues, currentValues]);
 
   const onSubmit = async () => {
     try {
       const payload = watch();
       await saveHeroSettings(payload);
       toast.success("Hero settings saved successfully!");
+      setInitialValues(payload);
     } catch (error) {
       console.error("Error saving hero settings:", error);
       toast.error("Failed to save hero settings.");
@@ -45,6 +63,7 @@ const Hero = () => {
     <div>
       <div className="sticky top-20 left-4 flex justify-end mt-2 z-50">
         <InteractiveSaveBtn
+          disabled={isSaveDisabled} // Disable the button if no changes are made
           onClick={() => {
             onSubmit();
             return true;

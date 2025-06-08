@@ -52,23 +52,21 @@ const LayoutAlignment = ({ formUtils = {} as FormUtils }) => {
   ];
 
   return (
-    <div>
-      <SubSectionsWrapper>
-        {/* Layout and alignment sub-section */}
-        <section>
-          <Subheader heading="Layout & Alignment" />
-          <div className="flex flex-col lg:flex-row gap-3">
-            {/* Layout Preview */}
-            <LayoutPreview />
-            <MechSelector
-              register={register}
-              options={options}
-              setValue={setValue}
-            />
-          </div>
-        </section>
-      </SubSectionsWrapper>
-    </div>
+    <SubSectionsWrapper>
+      {/* Layout and alignment sub-section */}
+      <section>
+        <Subheader heading="Layout & Alignment" />
+        <div className="flex flex-col lg:flex-row gap-3">
+          {/* Layout Preview */}
+          <LayoutPreview />
+          <MechSelector
+            register={register}
+            options={options}
+            setValue={setValue}
+          />
+        </div>
+      </section>
+    </SubSectionsWrapper>
   );
 };
 

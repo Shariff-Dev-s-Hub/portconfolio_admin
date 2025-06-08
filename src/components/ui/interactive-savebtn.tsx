@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-const InteractiveSaveBtn = ({ onClick = () => false }) => {
+const InteractiveSaveBtn = ({ onClick = () => false, disabled = false }) => {
   return (
     <StyledWrapper>
-      <button onClick={onClick}>
+      <button disabled={disabled} onClick={onClick}>
         <div className="svg-wrapper-1">
           <div className="svg-wrapper">
             <svg
