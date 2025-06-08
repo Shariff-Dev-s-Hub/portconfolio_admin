@@ -43,6 +43,15 @@ const StyledWrapper = styled.div`
     cursor: pointer;
   }
 
+  @media (max-width: 540px) {
+    button {
+      border-radius: 0;
+      width: 100px;
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+    }
+  }
+
   button span {
     display: block;
     margin-left: 0.3em;

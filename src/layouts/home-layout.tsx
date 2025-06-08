@@ -235,7 +235,7 @@ const HomeLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       >
         <div
           id="smooth-content"
-          className="will-change-transform min-h-[100vh] pt-40 pl-7 pr-7 lg:pt-36 lg:pl-80 lg:pr-10 lg:pb-10"
+          className="will-change-transform min-h-[100vh] pt-40 md:px-7 lg:pt-36 lg:pl-80 lg:pr-10 lg:pb-10"
         >
           <h1 className="text-4xl md:text-6xl text-[#f2b523] font-bold text-center mb-8">
             {activeTab.displayText}

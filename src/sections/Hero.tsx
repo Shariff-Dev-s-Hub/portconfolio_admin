@@ -61,7 +61,7 @@ const Hero = () => {
 
   return (
     <div>
-      <div className="sticky top-20 left-4 flex justify-end mt-2 z-50">
+      <div className="sticky top-20 left-4 flex justify-end mt-5 z-50">
         <InteractiveSaveBtn
           onClick={() => {
             if (isSaveDisabled) {
