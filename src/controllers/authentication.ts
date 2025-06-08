@@ -65,21 +65,38 @@ export const login = async (credentials: SignupCredentials) => {
 
 export const checkAuth = async () => {
   try {
+    const token = localStorage.getItem("jwt");
+
+    if (!token) {
+      console.error("No token found in localStorage");
+      throw new Error("Login Required");
+    }
+
     const res = await fetch("/api/auth/authenticate", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        Authorization: `Bearer ${JSON.parse(token)}`,
       },
     });
-    if (!res.ok) {
-      throw new Error("Login Required");
-    }
-    const data = await res.json();
 
+    if (!res.ok) {
+      const errorData = await res.json();
+      console.error(
+        "Authentication failed:",
+        errorData.error || "Unknown error"
+      );
+      throw new Error(errorData.error || "Login Required");
+    }
+
+    const data = await res.json();
     return data;
   } catch (error) {
-    console.error("Error checking authentication:", error);
+    if (error instanceof Error) {
+      console.error("Error checking authentication:", error.message);
+    } else {
+      console.error("Error checking authentication:", error);
+    }
     return null;
   }
 };

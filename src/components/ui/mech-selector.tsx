@@ -8,14 +8,14 @@ interface RadioOption {
 
 interface RadioProps {
   options: RadioOption[];
-  selectedValue: string;
-  onChange: (value: string) => void;
+  register?: any;
+  setValue: any;
 }
 
 const MechSelector: React.FC<RadioProps> = ({
   options,
-  selectedValue,
-  onChange,
+  register = {},
+  setValue,
 }) => {
   return (
     <StyledWrapper>
@@ -28,13 +28,15 @@ const MechSelector: React.FC<RadioProps> = ({
             <div className="choice" key={option.id}>
               <div className="input-container">
                 <input
+                  {...register("layout")}
                   className="choice-switch"
-                  value={option.id}
                   name="mech-selector"
+                  value={option.id}
                   id={option.id}
+                  onChange={(e) => {
+                    setValue("layout", e.target.value);
+                  }}
                   type="radio"
-                  checked={selectedValue === option.id}
-                  onChange={() => onChange(option.id)}
                 />
                 <div className="lever" />
               </div>

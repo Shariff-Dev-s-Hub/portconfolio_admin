@@ -237,6 +237,7 @@ const HomeLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
           <h1 className="text-4xl md:text-6xl text-[#f2b523] font-bold text-center mb-8">
             {activeTab.displayText}
           </h1>
+          <hr />
           {children}
         </div>
       </main>
