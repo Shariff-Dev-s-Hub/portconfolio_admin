@@ -14,17 +14,17 @@ const LayoutPreview: React.FC<LayoutPreviewProps> = (props) => {
       className={cn(
         "bg-conic-150 bg-amber-200 shadow-inner  w-full  min-h-52 md:min-h-72 px-10 md:px-20 lg:px-5 xl:px-20 lg:py-0 xl:py-10",
         layoutStyles[watch("layout") as keyof typeof layoutStyles]
-      )}
+      ,watch("layout") === "textWithCenterImage" ? "px-3" : "")}
     >
       <div
         className={cn(
           watch("layout") === "textWithCenterImage" ? "block" : "hidden"
         )}
       >
-        <h1 className="font-bold text-xl md:text-2xl lg:text-xl ">
+        <h1 className="font-bold text-sm md:text-2xl lg:text-xl ">
           Your Name Here
         </h1>
-        <p className="font-semibold text-sm md:text-xl lg:text-sm text-gray-500">
+        <p className="font-semibold text-xs md:text-xl lg:text-sm text-gray-500">
           Designation
         </p>
       </div>
