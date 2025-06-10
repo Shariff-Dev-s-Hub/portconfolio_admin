@@ -21,6 +21,5 @@ export const heroSchema = z.object({
     .optional(),
   buttonColor: z.string().optional(),
   backgroundColor: z.string().optional(),
-  profileImageUrl: z.string().url("Invalid URL").optional(),
-  profileImageType: z.string().optional(),
+  profileImageUrl: z.string().optional(),
 });

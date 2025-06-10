@@ -86,6 +86,13 @@ const Hero = () => {
               toast.error("No changes to save.");
               return false;
             }
+            if (Object.keys(errors).length > 0) {
+              const errorMessages = Object.values(errors)
+                .map((error) => error.message)
+                .join(", ");
+              toast.error(errorMessages);
+              return false;
+            }
             handleSubmit(onSubmit)();
             return true;
           }}

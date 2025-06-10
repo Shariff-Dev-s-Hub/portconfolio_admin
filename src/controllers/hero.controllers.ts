@@ -1,5 +1,6 @@
 import { UseFormSetValue } from "react-hook-form";
 import { HeroFormValues } from "@/lib/interfaces";
+import toast from "react-hot-toast";
 
 // Helper function to get the JWT token
 const getToken = (): string | null => {
@@ -41,6 +42,7 @@ export const getHeroSettings = async (
       setValue("name", data.name);
       setValue("designation", data.designation);
       setValue("buttonText", data.buttonText);
+      setValue("profileImageUrl", data.profileImageUrl);
     }
     setIsSettingsFetching(false);
   } catch (error) {
@@ -93,5 +95,43 @@ export const saveHeroSettings = async (data: HeroFormValues) => {
       console.error("Error saving hero settings:", error);
     }
     throw error;
+  }
+};
+
+export const handleFileChange = async (
+  e: React.ChangeEvent<HTMLInputElement>,
+  setValue: UseFormSetValue<HeroFormValues>,
+  setImageUploading: React.Dispatch<React.SetStateAction<boolean>>
+) => {
+  const token = getToken();
+
+  const file = e.target.files?.[0];
+  if (!file) {
+    toast.error("No file selected");
+    return;
+  }
+
+  try {
+    setImageUploading(true);
+    const response = await fetch("/api/file_upload/image_upload", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: file,
+    });
+    const data = await response.json();
+    setImageUploading(false);
+    setValue("profileImageUrl", data.url);
+    toast.success("Image uploaded successfully!");
+    
+  if (!response.ok) {
+      const errorData = await response.json();
+      console.error("Upload failed:", errorData.error || "Unknown error");
+      toast.error(errorData.error || "Upload failed");
+    }
+  } catch (err) {
+    console.error("Upload failed:", err);
+    setImageUploading(false);
   }
 };

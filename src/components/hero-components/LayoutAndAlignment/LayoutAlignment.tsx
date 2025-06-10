@@ -47,7 +47,7 @@ const LayoutAlignment: React.FC<{ formUtils: FormUtils }> = ({ formUtils }) => {
     <section className={cn(sectionsClass)}>
       {/* Layout and alignment sub-section */}
       <Subheader heading="Layout & Alignment" />
-      <div className="flex flex-col lg:flex-row gap-3">
+      <div className="flex flex-col xl:flex-row gap-3">
         {/* Layout Preview */}
         <LayoutPreview watch={watch} />
         <MechSelector

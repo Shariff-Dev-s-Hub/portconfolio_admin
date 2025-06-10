@@ -25,6 +25,10 @@ const heroSchema = new mongoose.Schema(
       type: String,
       default: "Contact",
     },
+    profileImageUrl:{
+      type: String,
+      required: true,
+    }
   },
   { timestamps: true }
 );

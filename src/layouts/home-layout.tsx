@@ -235,11 +235,11 @@ const HomeLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       {/* Main Content */}
       <main
         id="smooth-wrapper"
-        className="fixed top-0 left-0 right-0 bottom-0 overflow-auto 2xl:container 2xl:mx-auto "
+        className="fixed top-0 left-0 right-0 bottom-0 overflow-auto 2xl:container 2xl:mx-auto lg:overflow-hidden"
       >
         <div
           id="smooth-content"
-          className="will-change-transform min-h-[100vh] lg:overflow-x-hidden"
+          className="will-change-transform min-h-[100vh]"
         >
           <div
             style={{

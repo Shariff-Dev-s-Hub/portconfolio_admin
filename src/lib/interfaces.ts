@@ -16,7 +16,6 @@ export interface HeroFormValues {
   buttonColor?: string;
   backgroundColor?: string;
   profileImageUrl?: string;
-  profileImageType?: string;
 }
 
 export interface FormUtils {

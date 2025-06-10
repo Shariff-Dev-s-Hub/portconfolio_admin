@@ -93,7 +93,9 @@ const ProfileDetails: React.FC<{ formUtils: FormUtils }> = ({ formUtils }) => {
           </div>
         </div>
         <div className="p-4 px-20 flex items-center justify-center bg-white">
-          <ImageUploader />
+          <ImageUploader
+            formUtils={formUtils}
+          />
         </div>
       </div>
     </section>
