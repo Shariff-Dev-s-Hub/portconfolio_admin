@@ -31,7 +31,7 @@ const LayoutPreview: React.FC<LayoutPreviewProps> = (props) => {
       </div>
       <div
         className={cn(
-          "flex justify-center items-center shadow-xl rounded-full w-1/3 bg-gray-200 mb-4",
+          "flex justify-center items-center shadow-xl rounded-full w-1/3 max-w-44 bg-gray-200 mb-4",
           watch("layout") === "textWithBgColor" ? "hidden" : "block"
         )}
       >

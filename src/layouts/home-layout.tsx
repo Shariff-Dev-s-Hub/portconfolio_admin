@@ -239,7 +239,7 @@ const HomeLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       >
         <div
           id="smooth-content"
-          className="will-change-transform min-h-[100vh]"
+          className="will-change-transform min-h-[100vh] lg:overflow-x-hidden"
         >
           <div
             style={{
