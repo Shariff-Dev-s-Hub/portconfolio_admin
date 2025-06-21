@@ -52,10 +52,10 @@ const LayoutPreview: React.FC<LayoutPreviewProps> = (props) => {
           watch("layout") === "textWithCenterImage" ? "hidden" : "block"
         )}
       >
-        <h1 className="font-bold text-xl md:text-2xl lg:text-xl">
+        <h1 className="font-bold text-sm md:text-2xl lg:text-xl">
           {watch("name")?.trim() || "Your Name Here"}
         </h1>
-        <p className="font-semibold text-sm md:text-xl lg:text-sm text-gray-500">
+        <p className="font-semibold text-xs md:text-xl lg:text-sm text-gray-500">
           {watch("designation")?.trim() || "Designation"}
         </p>
         <Button className="mt-5 rounded-4xl">

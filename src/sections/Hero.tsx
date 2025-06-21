@@ -15,6 +15,7 @@ import { HeroLayoutAlignmentSkeletons } from "@/components/skeleton-templates/he
 import { useLoaderStore } from "@/store/loader-store";
 import ProfileDetails from "@/components/hero-components/ProfileDetails/ProfileDetails";
 import SubSectionsWrapper from "@/layouts/sub-section-wrapper";
+import { BackgroundCustomization } from "@/components/hero-components/BackgroundCustomization/BackgroundCustomization";
 
 const Hero = () => {
   const {
@@ -113,6 +114,16 @@ const Hero = () => {
           />
 
           <ProfileDetails
+            formUtils={{
+              register,
+              watch,
+              handleSubmit,
+              setValue,
+              errors,
+            }}
+          />
+
+          <BackgroundCustomization
             formUtils={{
               register,
               watch,
