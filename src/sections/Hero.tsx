@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { heroSchema } from "@/lib/zod-schemas";
 import { HeroFormValues } from "@/lib/interfaces"; // Import HeroFormValues
+import { FormUtils } from "@/lib/interfaces"; // Import FormUtils type
 import {
   getHeroSettings,
   saveHeroSettings,
@@ -28,6 +29,10 @@ const Hero = () => {
     resolver: zodResolver(heroSchema), // Use zod schema for validation
     defaultValues: {
       layout: "imageRight",
+      backgroundColor: {
+        hex: "#ffffff", // Default background color
+        rgb: { r: 255, g: 255, b: 255, a: 1 }, // Default RGB values
+      },
     },
   });
 
@@ -110,7 +115,7 @@ const Hero = () => {
               handleSubmit,
               errors,
               setValue,
-            }}
+            } as FormUtils<HeroFormValues>}
           />
 
           <ProfileDetails
@@ -120,7 +125,7 @@ const Hero = () => {
               handleSubmit,
               setValue,
               errors,
-            }}
+            } as FormUtils<HeroFormValues>}
           />
 
           <BackgroundCustomization
@@ -130,7 +135,7 @@ const Hero = () => {
               handleSubmit,
               setValue,
               errors,
-            }}
+            } as FormUtils<HeroFormValues>}
           />
         </SubSectionsWrapper>
       )}

@@ -1,16 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 
-interface RadioTabsProps<T extends string = string> {
+export interface RadioTabsProps<T extends string> {
   activeTab: T;
   setActiveTab: React.Dispatch<React.SetStateAction<T>>;
   tabs: T[];
 }
 
-const RadioTabs = ({ activeTab, setActiveTab, tabs }: RadioTabsProps) => {
-  const handleTabChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setActiveTab(event.target.value);
-  };
+function RadioTabs<T extends string>({
+  activeTab,
+  setActiveTab,
+  tabs,
+}: RadioTabsProps<T>) {
   return (
     <StyledWrapper>
       <div className="radio-input">
@@ -26,7 +27,7 @@ const RadioTabs = ({ activeTab, setActiveTab, tabs }: RadioTabsProps) => {
               name="radio-tabs"
               value={tab}
               checked={activeTab === tab}
-              onChange={handleTabChange}
+              onChange={() => setActiveTab(tab)}
             />
             <span className="text">{tab}</span>
           </label>
@@ -34,7 +35,7 @@ const RadioTabs = ({ activeTab, setActiveTab, tabs }: RadioTabsProps) => {
       </div>
     </StyledWrapper>
   );
-};
+}
 
 const StyledWrapper = styled.div`
   .radio-input {

@@ -20,6 +20,14 @@ export const heroSchema = z.object({
     .max(10, "Button text cannot exceed 15 characters")
     .optional(),
   buttonColor: z.string().optional(),
-  backgroundColor: z.string().optional(),
+  backgroundColor: z.object({
+    hex: z.string(),
+    rgb: z.object({
+      r: z.number(),
+      g: z.number(),
+      b: z.number(),
+      a: z.number(),
+    }),
+  }),
   profileImageUrl: z.string().optional(),
 });

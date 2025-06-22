@@ -11,9 +11,19 @@ type BackgroundTab = "plain" | "3d" | "image";
 export const BackgroundCustomization: React.FC<{ formUtils: FormUtils }> = ({
   formUtils,
 }) => {
+  const { register, setValue, watch, handleSubmit } = formUtils;
   const [activeTab, setActiveTab] = React.useState<BackgroundTab>("plain");
   const sections: Record<BackgroundTab, React.ReactElement> = {
-    plain: <PlainBackgroundColor />,
+    plain: (
+      <PlainBackgroundColor
+        formUtils={{
+          register,
+          setValue,
+          watch,
+          handleSubmit,
+        }}
+      />
+    ),
     "3d": <h1>3d</h1>,
     image: <h1>image</h1>,
   };
@@ -23,7 +33,7 @@ export const BackgroundCustomization: React.FC<{ formUtils: FormUtils }> = ({
       {/* Develop your code her */}
       <div className="bg-[#F3F4F6] py-5 md:py-4 p-2 md:p-4">
         <div className="flex flex-row justify-center md:justify-end ">
-          <RadioTabs<BackgroundTab >
+          <RadioTabs
             activeTab={activeTab}
             setActiveTab={setActiveTab}
             tabs={["plain", "3d", "image"]}

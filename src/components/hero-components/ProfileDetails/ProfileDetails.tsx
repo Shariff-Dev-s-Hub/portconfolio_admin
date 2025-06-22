@@ -38,7 +38,7 @@ const ProfileDetails: React.FC<{ formUtils: FormUtils }> = ({ formUtils }) => {
               placeholder="Enter Your Name"
             />
             {errors?.name && (
-              <p className="text-red-500 text-sm">{errors?.name.message}</p>
+              <p className="text-red-500 text-xs md:text-sm">{errors?.name.message}</p>
             )}
           </div>
           {/* Designation */}
@@ -57,7 +57,7 @@ const ProfileDetails: React.FC<{ formUtils: FormUtils }> = ({ formUtils }) => {
               placeholder="Enter Your Designation"
             />
             {errors?.designation && (
-              <p className="text-red-500 text-sm">
+              <p className="text-red-500 text-xs md:text-sm">
                 {errors?.designation.message}
               </p>
             )}
@@ -78,7 +78,7 @@ const ProfileDetails: React.FC<{ formUtils: FormUtils }> = ({ formUtils }) => {
               placeholder="Enter Button Text"
             />
             {errors?.buttonText && (
-              <p className="text-red-500 text-sm">
+              <p className="text-red-500 text-xs md:text-sm">
                 {errors?.buttonText.message}
               </p>
             )}

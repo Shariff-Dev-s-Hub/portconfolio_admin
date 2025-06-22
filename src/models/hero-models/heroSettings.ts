@@ -25,10 +25,24 @@ const heroSchema = new mongoose.Schema(
       type: String,
       default: "Contact",
     },
-    profileImageUrl:{
+    profileImageUrl: {
       type: String,
       required: true,
-    }
+    },
+    backgroundColor: {
+      type: {
+        hex: {
+          type: String,
+          default: "#ffffff", 
+        },
+        rgb: {
+          r: { type: Number, default: 255 },
+          g: { type: Number, default: 255 },
+          b: { type: Number, default: 255 },
+          a: { type: Number, default: 1 }, 
+        },
+      },
+    },
   },
   { timestamps: true }
 );

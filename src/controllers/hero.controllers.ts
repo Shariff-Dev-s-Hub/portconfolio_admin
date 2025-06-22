@@ -43,6 +43,7 @@ export const getHeroSettings = async (
       setValue("designation", data.designation);
       setValue("buttonText", data.buttonText);
       setValue("profileImageUrl", data.profileImageUrl);
+      setValue("backgroundColor", data.backgroundColor);
     }
     setIsSettingsFetching(false);
   } catch (error) {
@@ -124,8 +125,8 @@ export const handleFileChange = async (
     setImageUploading(false);
     setValue("profileImageUrl", data.url);
     toast.success("Image uploaded successfully!");
-    
-  if (!response.ok) {
+
+    if (!response.ok) {
       const errorData = await response.json();
       console.error("Upload failed:", errorData.error || "Unknown error");
       toast.error(errorData.error || "Upload failed");

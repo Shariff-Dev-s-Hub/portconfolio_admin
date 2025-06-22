@@ -4,24 +4,28 @@ import {
   UseFormRegister,
   UseFormSetValue,
   UseFormWatch,
+  FieldValues,
 } from "react-hook-form";
 
 export interface HeroFormValues {
-  layout?: string;
   name: string;
-  nameColor?: string;
   designation: string;
-  designationColor?: string;
+  backgroundColor: {
+    hex: string;
+    rgb: { r: number; g: number; b: number; a: number };
+  };
+  layout?: string;
   buttonText?: string;
-  buttonColor?: string;
-  backgroundColor?: string;
   profileImageUrl?: string;
+  nameColor?: string;
+  designationColor?: string;
+  buttonColor?: string;
 }
 
-export interface FormUtils {
-  register: UseFormRegister<HeroFormValues>;
-  watch: UseFormWatch<HeroFormValues>;
-  handleSubmit: UseFormHandleSubmit<HeroFormValues>;
-  errors?: FieldErrors<HeroFormValues>;
-  setValue?: UseFormSetValue<HeroFormValues>;
+export interface FormUtils<TFieldValues extends FieldValues = HeroFormValues> {
+  register: UseFormRegister<TFieldValues>;
+  watch: UseFormWatch<TFieldValues>;
+  handleSubmit: UseFormHandleSubmit<TFieldValues>;
+  errors?: FieldErrors<TFieldValues>;
+  setValue: UseFormSetValue<TFieldValues>;
 }

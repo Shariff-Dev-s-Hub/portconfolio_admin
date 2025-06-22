@@ -1,35 +1,50 @@
-import { BlockPicker, SketchPicker } from "react-color";
-import { useState } from "react";
+import { SketchPicker } from "react-color";
+import { FormUtils } from "@/lib/interfaces";
 
-export function PlainBackgroundColor() {
-  //creating state to store our color and also set color using onChange event for sketch picker
-  const [sketchPickerColor, setSketchPickerColor] = useState({
-    r: 241,
-    g: 112,
-    b: 19,
+export const PlainBackgroundColor: React.FC<{ formUtils: FormUtils }> = ({
+  formUtils,
+}) => {
+  const { register, setValue, watch } = formUtils;
+  const { r, g, b, a } = watch("backgroundColor")?.rgb || {
+    r: 255,
+    g: 255,
+    b: 255,
     a: 1,
-  });
-  // destructuring rgba from state
-  const { r, g, b, a } = sketchPickerColor;
-
-  //creating state to store our color and also set color using onChange event for block picker
+  };
 
   return (
     <div className="flex flex-col md:flex-row justify-around pt-8 pb-6 gap-3 items-center md:items-stretch">
-      {/* <h6>Sketch Picker</h6> */}
-      {/* Div to display the color  */}
-
-      {/* Sketch Picker from react-color and handling color on onChange event */}
       <SketchPicker
+        {...register("backgroundColor")}
         onChange={(color) => {
-          setSketchPickerColor({
-            r: color.rgb.r,
-            g: color.rgb.g,
-            b: color.rgb.b,
-            a: color.rgb.a !== undefined ? color.rgb.a : 1,
-          });
+          if (setValue) {
+            setValue("backgroundColor", {
+              hex: color.hex,
+              rgb: {
+                r: Math.round(color.rgb.r),
+                g: Math.round(color.rgb.g),
+                b: Math.round(color.rgb.b),
+                a: typeof color.rgb.a === "number" ? color.rgb.a : 1,
+              },
+            });
+          }
         }}
-        color={sketchPickerColor}
+        color={
+          watch("backgroundColor")?.rgb &&
+          typeof watch("backgroundColor")?.rgb?.r === "number" &&
+          typeof watch("backgroundColor")?.rgb?.g === "number" &&
+          typeof watch("backgroundColor")?.rgb?.b === "number"
+            ? {
+                r: watch("backgroundColor")?.rgb?.r as number,
+                g: watch("backgroundColor")?.rgb?.g as number,
+                b: watch("backgroundColor")?.rgb?.b as number,
+                a:
+                  typeof watch("backgroundColor")?.rgb?.a === "number"
+                    ? watch("backgroundColor")?.rgb?.a
+                    : 1,
+              }
+            : watch("backgroundColor")?.hex || "#ffffff"
+        }
       />
       <div
         style={{
@@ -39,4 +54,4 @@ export function PlainBackgroundColor() {
       />
     </div>
   );
-}
+};
