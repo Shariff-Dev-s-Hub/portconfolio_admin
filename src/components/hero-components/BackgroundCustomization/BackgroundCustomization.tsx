@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { sectionsClass } from "@/styles-config/styles-base";
 import React from "react";
 import { PlainBackgroundColor } from "./PlainBackgroundColor";
+import ImageBackground from "./ImageBackground";
 
 type BackgroundTab = "plain" | "3d" | "image";
 
@@ -25,7 +26,16 @@ export const BackgroundCustomization: React.FC<{ formUtils: FormUtils }> = ({
       />
     ),
     "3d": <h1>3d</h1>,
-    image: <h1>image</h1>,
+    image: (
+      <ImageBackground
+        formUtils={{
+          register,
+          setValue,
+          watch,
+          handleSubmit,
+        }}
+      />
+    ),
   };
   return (
     <section className={cn(sectionsClass)}>

@@ -1,6 +1,6 @@
 import Subheader from "@/components/resusables/Subheader";
 import { Button } from "@/components/ui/button";
-import ImageUploader from "@/components/ui/img-uploader";
+import ImageUploader from "@/components/ui/profile-img-uploader";
 import { Input } from "@/components/ui/input";
 import { FormUtils } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";

@@ -33,13 +33,17 @@ const heroSchema = new mongoose.Schema(
       type: {
         hex: {
           type: String,
-          default: "#ffffff", 
+          default: "#ffffff",
         },
         rgb: {
           r: { type: Number, default: 255 },
           g: { type: Number, default: 255 },
           b: { type: Number, default: 255 },
-          a: { type: Number, default: 1 }, 
+          a: { type: Number, default: 1 },
+        },
+        is_active: {
+          type: Boolean,
+          default: true,
         },
       },
     },

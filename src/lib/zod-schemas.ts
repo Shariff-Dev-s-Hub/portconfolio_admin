@@ -21,6 +21,7 @@ export const heroSchema = z.object({
     .optional(),
   buttonColor: z.string().optional(),
   backgroundColor: z.object({
+    is_active: z.boolean().optional(),
     hex: z.string(),
     rgb: z.object({
       r: z.number(),
@@ -30,4 +31,11 @@ export const heroSchema = z.object({
     }),
   }),
   profileImageUrl: z.string().optional(),
+  heroImageUrl: z
+    .object({
+      is_active: z.boolean().optional(),
+      url: z.string().optional(),
+    })
+    .optional(),
+  isHeroImageUrlActive: z.boolean().optional(),
 });

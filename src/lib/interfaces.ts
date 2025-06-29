@@ -11,8 +11,13 @@ export interface HeroFormValues {
   name: string;
   designation: string;
   backgroundColor: {
+    is_active?: boolean;
     hex: string;
     rgb: { r: number; g: number; b: number; a: number };
+  };
+  heroImageUrl?: {
+    is_active?: boolean;
+    url?: string;
   };
   layout?: string;
   buttonText?: string;
