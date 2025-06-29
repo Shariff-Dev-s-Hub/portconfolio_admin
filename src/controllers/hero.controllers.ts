@@ -121,18 +121,23 @@ export const handleFileChange = async (
       },
       body: file,
     });
-    const data = await response.json();
-    setImageUploading(false);
-    setValue("profileImageUrl", data.url);
-    toast.success("Image uploaded successfully!");
 
+    // Ensure response is checked before calling .json()
     if (!response.ok) {
       const errorData = await response.json();
       console.error("Upload failed:", errorData.error || "Unknown error");
       toast.error(errorData.error || "Upload failed");
+      setImageUploading(false);
+      return;
     }
+
+    const data = await response.json(); // Read the response body once
+    setImageUploading(false);
+    setValue("profileImageUrl", data.url);
+    toast.success("Image uploaded successfully!");
   } catch (err) {
     console.error("Upload failed:", err);
     setImageUploading(false);
+    toast.error("Upload failed");
   }
 };

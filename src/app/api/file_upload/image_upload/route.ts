@@ -22,6 +22,17 @@ export async function POST(req: NextRequest) {
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
+    // if no cloudname, api key or api secret is set, return error
+    if (
+      !process.env.CLOUDINARY_CLOUD_NAME ||
+      !process.env.CLOUDINARY_API_KEY ||
+      !process.env.CLOUDINARY_API_SECRET
+    ) {
+      return NextResponse.json(
+        { error: "Cloudinary configuration is missing" },
+        { status: 500 }
+      );
+    }
     const arrayBuffer = await req.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
