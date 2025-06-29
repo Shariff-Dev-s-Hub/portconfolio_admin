@@ -8,8 +8,22 @@ import { Trash } from "lucide-react";
 
 const ImageUploader: React.FC<{ formUtils: FormUtils }> = ({ formUtils }) => {
   const { setValue = () => {}, watch } = formUtils;
-  const { setImageUploading: setImageUploadingRaw, isImageUploading } =
-    useLoaderStore();
+  const {
+    setImageUploading: setImageUploadingRaw,
+    isImageUploading,
+    setImageType: setImageTypeRaw,
+    imageType,
+  } = useLoaderStore();
+
+  const setImageType: React.Dispatch<React.SetStateAction<string>> = (
+    value
+  ) => {
+    if (typeof value === "function") {
+      setImageTypeRaw((value as (prev: string) => string)(""));
+    } else {
+      setImageTypeRaw(value);
+    }
+  };
   const setImageUploading: React.Dispatch<React.SetStateAction<boolean>> = (
     value
   ) => {
@@ -23,7 +37,7 @@ const ImageUploader: React.FC<{ formUtils: FormUtils }> = ({ formUtils }) => {
 
   return (
     <>
-      {isImageUploading ? (
+      {isImageUploading && imageType === "profileImageUrl" ? (
         <ImageLoader />
       ) : (
         <StyledWrapper>
@@ -60,7 +74,13 @@ const ImageUploader: React.FC<{ formUtils: FormUtils }> = ({ formUtils }) => {
                 id="file"
                 type="file"
                 onChange={(e) => {
-                  handleFileChange(e, setValue, setImageUploading);
+                  handleFileChange(
+                    e,
+                    setValue,
+                    setImageUploading,
+                    setImageType,
+                    "profileImageUrl"
+                  );
                 }}
                 hidden
               />

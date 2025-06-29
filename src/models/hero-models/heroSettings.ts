@@ -47,6 +47,12 @@ const heroSchema = new mongoose.Schema(
         },
       },
     },
+    heroImageUrl: {
+      type: {
+        url: { type: String, required: true },
+        is_active: { type: Boolean, default: true },
+      },
+    },
   },
   { timestamps: true }
 );

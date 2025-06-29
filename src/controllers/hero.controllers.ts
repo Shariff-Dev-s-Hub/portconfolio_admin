@@ -44,6 +44,7 @@ export const getHeroSettings = async (
       setValue("buttonText", data.buttonText);
       setValue("profileImageUrl", data.profileImageUrl);
       setValue("backgroundColor", data.backgroundColor);
+      setValue("heroImageUrl", data.heroImageUrl);
     }
     setIsSettingsFetching(false);
   } catch (error) {
@@ -102,7 +103,9 @@ export const saveHeroSettings = async (data: HeroFormValues) => {
 export const handleFileChange = async (
   e: React.ChangeEvent<HTMLInputElement>,
   setValue: UseFormSetValue<HeroFormValues>,
-  setImageUploading: React.Dispatch<React.SetStateAction<boolean>>
+  setImageUploading: React.Dispatch<React.SetStateAction<boolean>>,
+  setImageType: React.Dispatch<React.SetStateAction<string>>,
+  stateName: string
 ) => {
   const token = getToken();
 
@@ -113,6 +116,7 @@ export const handleFileChange = async (
   }
 
   try {
+    setImageType(stateName);
     setImageUploading(true);
     const response = await fetch("/api/file_upload/image_upload", {
       method: "POST",
@@ -133,7 +137,7 @@ export const handleFileChange = async (
 
     const data = await response.json(); // Read the response body once
     setImageUploading(false);
-    setValue("profileImageUrl", data.url);
+    setValue(stateName as keyof HeroFormValues, data.url);
     toast.success("Image uploaded successfully!");
   } catch (err) {
     console.error("Upload failed:", err);

@@ -1,39 +1,137 @@
 import { FormUtils } from "@/lib/interfaces";
 import React from "react";
 import styled from "styled-components";
+import { useLoaderStore } from "@/store/loader-store";
+import { handleFileChange } from "@/controllers/hero.controllers";
+import { Trash } from "lucide-react";
+import ImageLoader from "./image-loader";
+import ToggleBtn from "./toggle-btn";
 
 const HeroImgUploader: React.FC<{ formUtils: FormUtils }> = ({ formUtils }) => {
   const { setValue = () => {}, watch } = formUtils;
+  const {
+    setImageUploading: setImageUploadingRaw,
+    isImageUploading,
+    setImageType: setImageTypeRaw,
+    imageType,
+  } = useLoaderStore();
+
+  const setImageType: React.Dispatch<React.SetStateAction<string>> = (
+    value
+  ) => {
+    if (typeof value === "function") {
+      setImageTypeRaw((value as (prev: string) => string)(""));
+    } else {
+      setImageTypeRaw(value);
+    }
+  };
+
+  const setImageUploading: React.Dispatch<React.SetStateAction<boolean>> = (
+    value
+  ) => {
+    if (typeof value === "function") {
+      setImageUploadingRaw((value as (prev: boolean) => boolean)(false));
+    } else {
+      setImageUploadingRaw(value);
+    }
+  };
   return (
     <>
-      {!watch("heroImageUrl") && (
-        <StyledWrapper>
-          <div className="input-div">
-            <input accept="image/*" className="input" name="file" type="file" />
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="1em"
-              height="1em"
-              strokeLinejoin="round"
-              strokeLinecap="round"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              fill="none"
-              stroke="currentColor"
-              className="icon"
-            >
-              <polyline points="16 16 12 12 8 16" />
-              <line y2={21} x2={12} y1={12} x1={12} />
-              <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3" />
-              <polyline points="16 16 12 12 8 16" />
-            </svg>
-          </div>
-        </StyledWrapper>
+      <div className="flex justify-start my-10 w-full">
+        <ToggleBtn
+          formUtils={formUtils}
+          isDisabled={!watch("heroImageUrl.url")}
+        />
+      </div>
+      {isImageUploading && imageType === "heroImageUrl.url" ? (
+        <ImageLoader />
+      ) : (
+        <>
+          {!watch("heroImageUrl.url") ? (
+            <>
+              <StyledWrapper>
+                <div className="input-div">
+                  <input
+                    onChange={(e) => {
+                      handleFileChange(
+                        e,
+                        setValue,
+                        setImageUploading,
+                        setImageType,
+                        "heroImageUrl.url"
+                      );
+                    }}
+                    accept="image/*"
+                    className="input"
+                    name="file"
+                    type="file"
+                  />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="1em"
+                    height="1em"
+                    strokeLinejoin="round"
+                    strokeLinecap="round"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    fill="none"
+                    stroke="currentColor"
+                    className="icon"
+                  >
+                    <polyline points="16 16 12 12 8 16" />
+                    <line y2={21} x2={12} y1={12} x1={12} />
+                    <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3" />
+                    <polyline points="16 16 12 12 8 16" />
+                  </svg>
+                </div>
+              </StyledWrapper>
+              <p className="text-gray-500 text-xs md:text-sm mt-8">
+                Upload better image for quality
+              </p>
+            </>
+          ) : (
+            <div className="relative w-full group">
+              <img
+                className="w-full h-96 object-cover rounded-lg"
+                src={watch("heroImageUrl.url") || ""}
+                alt="Uploaded"
+                width={200}
+                loading="lazy"
+              />
+              {/* Mobile view trash */}
+              <div
+                onClick={() => {
+                  setValue("heroImageUrl", {
+                    url: "",
+                    is_active: false,
+                  });
+                }}
+                className="absolute xl:hidden bottom-2 right-2 flex items-center justify-center cursor-pointer z-20"
+              >
+                <Trash
+                  size={24}
+                  className="text-red-500 bg-white bg-opacity-70 rounded-full p-1 hover:bg-gray-200"
+                />
+              </div>
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-60 transition-opacity pointer-events-none" />
+              {/* Centered Delete Icon (visible on hover) */}
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer z-10">
+                <Trash
+                  onClick={() => {
+                    setValue("heroImageUrl", {
+                      url: "",
+                      is_active: false,
+                    });
+                  }}
+                  size={40}
+                  className="text-red-500 bg-white bg-opacity-70 rounded-full p-2 hover:bg-gray-200"
+                />
+              </div>
+            </div>
+          )}
+        </>
       )}
-
-      <p className="text-gray-500 text-xs md:text-sm mt-8">
-        Upload better image for quality
-      </p>
     </>
   );
 };
