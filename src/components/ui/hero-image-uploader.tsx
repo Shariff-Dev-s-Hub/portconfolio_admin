@@ -35,12 +35,32 @@ const HeroImgUploader: React.FC<{ formUtils: FormUtils }> = ({ formUtils }) => {
       setImageUploadingRaw(value);
     }
   };
+
+  const setterFunc = (url: string) => {
+    setValue("heroImageUrl", { url, is_active: true });
+  };
+
+  const onToggle = (isActive: boolean) => {
+    setValue("heroImageUrl", {
+      ...watch("heroImageUrl"),
+      is_active: isActive,
+    });
+    if (!isActive) {
+      setValue("heroImageUrl", {
+        ...watch("heroImageUrl"),
+        is_active: false,
+      });
+    }
+  };
+
   return (
     <>
       <div className="flex justify-start my-10 w-full">
         <ToggleBtn
+          onToggle={onToggle}
           formUtils={formUtils}
           isDisabled={!watch("heroImageUrl.url")}
+          stateName="heroImageUrl.is_active"
         />
       </div>
       {isImageUploading && imageType === "heroImageUrl.url" ? (
@@ -55,10 +75,10 @@ const HeroImgUploader: React.FC<{ formUtils: FormUtils }> = ({ formUtils }) => {
                     onChange={(e) => {
                       handleFileChange(
                         e,
-                        setValue,
                         setImageUploading,
                         setImageType,
-                        "heroImageUrl.url"
+                        "heroImageUrl.url",
+                        setterFunc
                       );
                     }}
                     accept="image/*"

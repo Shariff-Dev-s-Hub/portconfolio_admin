@@ -102,10 +102,10 @@ export const saveHeroSettings = async (data: HeroFormValues) => {
 
 export const handleFileChange = async (
   e: React.ChangeEvent<HTMLInputElement>,
-  setValue: UseFormSetValue<HeroFormValues>,
   setImageUploading: React.Dispatch<React.SetStateAction<boolean>>,
   setImageType: React.Dispatch<React.SetStateAction<string>>,
-  stateName: string
+  stateName: string,
+  setterFunc: (url: string) => void
 ) => {
   const token = getToken();
 
@@ -137,7 +137,7 @@ export const handleFileChange = async (
 
     const data = await response.json(); // Read the response body once
     setImageUploading(false);
-    setValue(stateName as keyof HeroFormValues, data.url);
+    setterFunc(data.url); 
     toast.success("Image uploaded successfully!");
   } catch (err) {
     console.error("Upload failed:", err);

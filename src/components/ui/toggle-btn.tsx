@@ -2,20 +2,24 @@ import { FormUtils } from "@/lib/interfaces";
 import React from "react";
 import styled from "styled-components";
 
-const ToggleBtn: React.FC<{ formUtils: FormUtils; isDisabled?: boolean }> = ({
-  formUtils,
-  isDisabled = false,
-}) => {
-  const { setValue = () => {}, watch } = formUtils;
+import type { HeroFormValues } from "@/lib/interfaces";
+
+const ToggleBtn: React.FC<{
+  formUtils: FormUtils;
+  isDisabled?: boolean;
+  onToggle?: (isActive: boolean) => void;
+  stateName?: string;
+}> = ({ formUtils, isDisabled = false, onToggle, stateName }) => {
+  const { watch } = formUtils;
   return (
     <StyledWrapper>
       <div className="neo-toggle-container">
         <input
-          value={watch("heroImageUrl.is_active") ? "true" : "false"}
+          value={stateName ? (watch(stateName as keyof HeroFormValues) ? "true" : "false") : "false"}
           onChange={(e) => {
-            setValue("heroImageUrl.is_active", e.target.checked ? true : false);
+            onToggle && onToggle(e.target.checked ? true : false);
           }}
-          checked={watch("heroImageUrl.is_active")}
+          checked={stateName ? !!watch(stateName as keyof HeroFormValues) : false}
           disabled={isDisabled}
           className="neo-toggle-input"
           id="neo-toggle"

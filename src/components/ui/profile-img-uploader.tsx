@@ -35,6 +35,10 @@ const ImageUploader: React.FC<{ formUtils: FormUtils }> = ({ formUtils }) => {
     }
   };
 
+  const setterFunc = (url: string) => {
+    setValue("profileImageUrl", url);
+  }
+
   return (
     <>
       {isImageUploading && imageType === "profileImageUrl" ? (
@@ -76,10 +80,10 @@ const ImageUploader: React.FC<{ formUtils: FormUtils }> = ({ formUtils }) => {
                 onChange={(e) => {
                   handleFileChange(
                     e,
-                    setValue,
                     setImageUploading,
                     setImageType,
-                    "profileImageUrl"
+                    "profileImageUrl",
+                    setterFunc
                   );
                 }}
                 hidden
