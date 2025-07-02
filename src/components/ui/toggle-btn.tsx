@@ -15,11 +15,14 @@ const ToggleBtn: React.FC<{
     <StyledWrapper>
       <div className="neo-toggle-container">
         <input
-          value={stateName ? (watch(stateName as keyof HeroFormValues) ? "true" : "false") : "false"}
           onChange={(e) => {
-            onToggle && onToggle(e.target.checked ? true : false);
+            if (onToggle) {
+              onToggle(e.target.checked);
+            }
           }}
-          checked={stateName ? !!watch(stateName as keyof HeroFormValues) : false}
+          checked={
+            stateName ? !!watch(stateName as keyof HeroFormValues) : false
+          }
           disabled={isDisabled}
           className="neo-toggle-input"
           id="neo-toggle"
